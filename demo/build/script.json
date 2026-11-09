@@ -1,0 +1,20 @@
+[
+ {"id":"S1","kind":"slide","voice":"Stop losses only work if something is watching the price. Usually that's a bot on a server you have to keep alive. If it lags or crashes, your stop fires late. SnapGuard hands that job to Reactive Network."},
+ {"id":"S2","kind":"slide","voice":"Here's the loop. A paper vault and a test price pool live on Base Sepolia. SnapGuard's reactive contract on Lasna listens to their events. When the price crosses your stop or your target, it sends a callback that closes the trade back on Base."},
+ {"id":"L1","kind":"live","a":-1.0,"b":3.3,"voice":"This is a live run on testnet. On the left is my terminal. On the right, a dashboard that reads both chains directly."},
+ {"id":"L2","kind":"live","a":3.3,"b":6.9,"voice":"I open a paper long at two thousand dollars, with a stop at eighteen hundred and a target at twenty two hundred. Within a second, Lasna picks up the new position and starts watching it. I didn't register it anywhere."},
+ {"id":"L3","kind":"live","a":6.9,"b":9.3,"voice":"Now I drop the test price to seventeen hundred, and take my hands off."},
+ {"id":"L4","kind":"live","a":9.3,"b":15.6,"rt":true,"voice":"The pool emits a price update. Reactive sees the stop. The callback closes the trade."},
+ {"id":"L5","kind":"live","a":15.6,"b":16.4,"voice":"Stop loss done. One point seven seconds on the stopwatch, and on chain, the price move and the close are just one second apart."},
+ {"id":"L6","kind":"live","a":39.9,"b":46.0,"cut":true,"voice":"Next, I reset the test price to two thousand for the second trade."},
+ {"id":"L7","kind":"live","a":49.3,"b":53.0,"voice":"Same again for take profit. Open a new position, and it's tracked automatically."},
+ {"id":"L8","kind":"live","a":53.0,"b":55.7,"voice":"This time I push the price up to twenty three hundred."},
+ {"id":"L9","kind":"live","a":55.7,"b":61.0,"rt":true,"voice":"Threshold hit on Lasna. Callback on Base. Closed in profit."},
+ {"id":"L10","kind":"live","a":61.0,"b":63.0,"voice":"One point six seconds on the stopwatch. Two seconds between blocks on chain."},
+ {"id":"E1","kind":"explorer","voice":"Here's the same stop loss on the public explorers. First, the price move on Basescan."},
+ {"id":"E2","kind":"explorer","voice":"Then the reactive transaction on Reactscan. It was triggered by that exact pool log, and its callback to Base Sepolia is confirmed."},
+ {"id":"E3","kind":"explorer","voice":"And the callback on Basescan, delivered through the Reactive callback proxy, one second after the price moved."},
+ {"id":"E4","kind":"latency","voice":"Our latency script reads the block time of all three hops. Full loop: one second for the stop loss, two seconds for the take profit."},
+ {"id":"T1","kind":"tests","voice":"Nine Foundry tests cover the thresholds, auto tracking, both exits, and blocking callbacks from anyone else. All nine pass."},
+ {"id":"C1","kind":"close","voice":"Next, I want to add trailing stops and real pool prices. For now, SnapGuard is testnet only, with paper trades and no real funds. The code is open source on GitHub. Thanks for watching."}
+]

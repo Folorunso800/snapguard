@@ -1,0 +1,6 @@
+origin_tx     0x6f3a3f07b4160adef783cfcd077f3299dbe24d8c648b533c36946659777b413f  block=56580803  ts=1794238029
+reactive_tx   0x77c1924f5020aa9d820ed9c8f4dd4483adb05afdad1a255eee0c61f030e15f5e  block=7930610  ts=1794238029
+callback_tx   0x35a291473c7cc3e3b1697948b620c50565c03a943618fda2e7e62ba20f0c9149  block=56580812  ts=1794238031
+origin_to_reactive_s  0
+reactive_to_callback_s 2
+full_loop_s           2

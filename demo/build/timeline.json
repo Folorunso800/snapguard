@@ -1,0 +1,146 @@
+[
+ {
+  "id": "S1",
+  "start": 0,
+  "dur": 15.202666666666666,
+  "vd": 13.802666666666667,
+  "lead": 0.35,
+  "voice": "Stop losses only work if something is watching the price. Usually that's a bot on a server you have to keep alive. If it lags or crashes, your stop fires late. SnapGuard hands that job to Reactive Network."
+ },
+ {
+  "id": "S2",
+  "start": 15.202666666666666,
+  "dur": 17.234666666666666,
+  "vd": 16.234666666666666,
+  "lead": 0.35,
+  "voice": "Here's the loop. A paper vault and a test price pool live on Base Sepolia. SnapGuard's reactive contract on Lasna listens to their events. When the price crosses your stop or your target, it sends a callback that closes the trade back on Base."
+ },
+ {
+  "id": "L1",
+  "start": 32.43733333333333,
+  "dur": 8.991999999999999,
+  "vd": 8.192,
+  "lead": 0.35,
+  "voice": "This is a live run on testnet. On the left is my terminal. On the right, a dashboard that reads both chains directly."
+ },
+ {
+  "id": "L2",
+  "start": 41.429333333333325,
+  "dur": 14.751999999999999,
+  "vd": 13.952,
+  "lead": 0.35,
+  "voice": "I open a paper long at two thousand dollars, with a stop at eighteen hundred and a target at twenty two hundred. Within a second, Lasna picks up the new position and starts watching it. I didn't register it anywhere."
+ },
+ {
+  "id": "L3",
+  "start": 56.18133333333333,
+  "dur": 5.514666666666667,
+  "vd": 4.714666666666667,
+  "lead": 0.35,
+  "voice": "Now I drop the test price to seventeen hundred, and take my hands off."
+ },
+ {
+  "id": "L4",
+  "start": 61.696,
+  "dur": 6.944,
+  "vd": 6.144,
+  "lead": 0.15,
+  "voice": "The pool emits a price update. Reactive sees the stop. The callback closes the trade."
+ },
+ {
+  "id": "L5",
+  "start": 68.64,
+  "dur": 9.568,
+  "vd": 8.768,
+  "lead": 0.35,
+  "voice": "Stop loss done. One point seven seconds on the stopwatch, and on chain, the price move and the close are just one second apart."
+ },
+ {
+  "id": "L6",
+  "start": 78.208,
+  "dur": 6.100000000000001,
+  "vd": 4.394666666666667,
+  "lead": 0.35,
+  "voice": "Next, I reset the test price to two thousand for the second trade."
+ },
+ {
+  "id": "L7",
+  "start": 84.30799999999999,
+  "dur": 6.218666666666667,
+  "vd": 5.418666666666667,
+  "lead": 0.35,
+  "voice": "Same again for take profit. Open a new position, and it's tracked automatically."
+ },
+ {
+  "id": "L8",
+  "start": 90.52666666666666,
+  "dur": 4.469333333333333,
+  "vd": 3.6693333333333333,
+  "lead": 0.35,
+  "voice": "This time I push the price up to twenty three hundred."
+ },
+ {
+  "id": "L9",
+  "start": 94.996,
+  "dur": 5.299999999999997,
+  "vd": 4.416,
+  "lead": 0.15,
+  "voice": "Threshold hit on Lasna. Callback on Base. Closed in profit."
+ },
+ {
+  "id": "L10",
+  "start": 100.29599999999999,
+  "dur": 6.218666666666667,
+  "vd": 5.418666666666667,
+  "lead": 0.35,
+  "voice": "One point six seconds on the stopwatch. Two seconds between blocks on chain."
+ },
+ {
+  "id": "E1",
+  "start": 106.51466666666666,
+  "dur": 7.08,
+  "vd": 6.08,
+  "lead": 0.35,
+  "voice": "Here's the same stop loss on the public explorers. First, the price move on Basescan."
+ },
+ {
+  "id": "E2",
+  "start": 113.59466666666665,
+  "dur": 10.066666666666665,
+  "vd": 9.066666666666666,
+  "lead": 0.35,
+  "voice": "Then the reactive transaction on Reactscan. It was triggered by that exact pool log, and its callback to Base Sepolia is confirmed."
+ },
+ {
+  "id": "E3",
+  "start": 123.66133333333332,
+  "dur": 8.210666666666665,
+  "vd": 7.210666666666667,
+  "lead": 0.35,
+  "voice": "And the callback on Basescan, delivered through the Reactive callback proxy, one second after the price moved."
+ },
+ {
+  "id": "E4",
+  "start": 131.87199999999999,
+  "dur": 9.490666666666664,
+  "vd": 8.490666666666666,
+  "lead": 0.35,
+  "voice": "Our latency script reads the block time of all three hops. Full loop: one second for the stop loss, two seconds for the take profit."
+ },
+ {
+  "id": "T1",
+  "start": 141.36266666666666,
+  "dur": 9.447999999999999,
+  "vd": 8.448,
+  "lead": 0.35,
+  "voice": "Nine Foundry tests cover the thresholds, auto tracking, both exits, and blocking callbacks from anyone else. All nine pass."
+ },
+ {
+  "id": "C1",
+  "start": 150.81066666666666,
+  "dur": 14.029333333333332,
+  "vd": 12.629333333333333,
+  "lead": 0.35,
+  "voice": "Next, I want to add trailing stops and real pool prices. For now, SnapGuard is testnet only, with paper trades and no real funds. The code is open source on GitHub. Thanks for watching."
+ }
+]

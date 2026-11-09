@@ -4,7 +4,7 @@
 
 Plain words: SnapGuard is a **paper** stop-loss / take-profit robot. You open a fake trade with a “sell if price drops” line and a “take profit if price rises” line. A tiny test pool moves its price. **Reactive Network** (Lasna testnet) notices the move by itself — no bot you have to keep online — and tells a vault on Base Sepolia (or Unichain Sepolia) to close the paper trade. We record how many seconds that whole trip took.
 
-Testnet only. No real money. Nothing has been deployed yet.
+Testnet only. No real money. v2 is live on Base Sepolia + Lasna (see `docs/DEPLOYMENT.md`).
 
 ## Architecture
 
@@ -73,9 +73,9 @@ ORIGIN_RPC=$BASE_SEPOLIA_RPC_URL LASNA_RPC=$LASNA_RPC_URL \
 ./script/measure_latency.sh
 ```
 
-## Demo video outline
+## Demo video
 
-See `docs/DEMO_SCRIPT.md` (&lt; 3 minutes).
+`demo/snapguard-demo.mp4` (2:45): a real live run on testnet, stop-loss and take-profit each closed by a Reactive callback in about 1 to 2 seconds. Script and tx links: `docs/DEMO_SCRIPT.md`.
 
 ## Credits / dependencies
 

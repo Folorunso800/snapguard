@@ -1,0 +1,15 @@
+No files changed, compilation skipped
+
+Ran 9 tests for test/SnapGuard.t.sol:SnapGuardTest
+[PASS] test_no_trigger_inside_band() (gas: 4189441)
+[PASS] test_open_position_thresholds() (gas: 4272587)
+[PASS] test_pool_emits_sync_and_price() (gas: 4068594)
+[PASS] test_position_opened_auto_tracks_without_manual_track() (gas: 4833759)
+[PASS] test_position_opened_topic_constant() (gas: 4025376)
+[PASS] test_stop_loss_full_local_loop() (gas: 4837394)
+[PASS] test_sync_topic0_matches_uniswap_v2() (gas: 297)
+[PASS] test_take_profit_triggers() (gas: 4816621)
+[PASS] test_unauthorized_callback_reverts() (gas: 4252503)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 2.27ms (8.17ms CPU time)
+
+Ran 1 test suite in 10.38ms (2.27ms CPU time): 9 tests passed, 0 failed, 0 skipped (9 total tests)

@@ -42,6 +42,17 @@ Note: after the stop-loss, the reactive contract accrued **debt** and Sync deliv
 
 **Latency:** full loop **2 seconds** (`latencySeconds = 2`, reason TakeProfit).
 
+
+### Demo video live run (positions #7 and #8, 2026-11-09 16:26 WAT)
+
+| Step | Stop-loss #7 | Take-profit #8 |
+|---|---|---|
+| Origin Sync | https://sepolia.basescan.org/tx/0xd40a3a6165112083c8539b79e0e8170f098390381b6d8645b777f15b0c8a17eb | https://sepolia.basescan.org/tx/0x6f3a3f07b4160adef783cfcd077f3299dbe24d8c648b533c36946659777b413f |
+| Reactive | https://lasna.reactscan.net/tx/0xa2fc2757506ecebfe8654282a6b968e6e74d5de3167c7ac25969e037fa0306ca | https://lasna.reactscan.net/tx/0x77c1924f5020aa9d820ed9c8f4dd4483adb05afdad1a255eee0c61f030e15f5e |
+| Callback | https://sepolia.basescan.org/tx/0x943f1b72e75093276142a8da2eebcf33534da0fb31b87afd139db6a107ffe053 | https://sepolia.basescan.org/tx/0x35a291473c7cc3e3b1697948b620c50565c03a943618fda2e7e62ba20f0c9149 |
+
+Full loop from block timestamps: stop-loss 1 s, take-profit 2 s.
+
 ### Remaining balances (after v2)
 
 | Asset | Amount |

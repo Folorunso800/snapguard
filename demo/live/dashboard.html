@@ -1,0 +1,95 @@
+<!doctype html><html><head><meta charset="utf-8"><title>SnapGuard live</title>
+<style>
+@font-face{font-family:Inter;src:url(/fonts/Inter.ttf)}
+@font-face{font-family:Mono;src:url(/fonts/Mono.ttf)}
+*{box-sizing:border-box}body{margin:0;width:1920px;height:1080px;background:#070b11;color:#eef2f6;font-family:Inter,sans-serif;overflow:hidden}
+.top{height:92px;display:flex;align-items:center;padding:0 40px;border-bottom:1px solid #1d2833;gap:28px}
+.logo{font-size:38px;font-weight:800;letter-spacing:.5px}.logo span{color:#5ef2b0}
+.badge{padding:8px 16px;border-radius:20px;font-size:20px;font-weight:700;background:#132a22;color:#5ef2b0;border:1px solid #275c47}
+.badge.w{background:#2a2213;color:#f2c75e;border-color:#5c4a27}
+.clock{margin-left:auto;font-family:Mono;font-size:30px;color:#a9b4c0}
+.main{display:grid;grid-template-columns:820px 1fr;gap:28px;padding:26px 40px}
+.term{background:#0c121a;border:1px solid #223040;border-radius:14px;height:930px;padding:22px;font-family:Mono;font-size:21px;line-height:1.5;overflow:hidden}
+.term h3{margin:0 0 14px;font-family:Inter;font-size:18px;color:#5ed6f2;letter-spacing:1px}
+.term .c{color:#5ed6f2}.term .o{color:#cfd6de}.term .g{color:#5ef2b0}.term .m{color:#7f8b98}
+.term div{white-space:pre-wrap;word-break:break-all}
+.right{display:flex;flex-direction:column;gap:22px}
+.row{display:flex;gap:22px}
+.card{background:#0e151e;border:1px solid #223040;border-radius:14px;padding:22px 26px}
+.lbl{font-size:17px;color:#8a96a3;letter-spacing:1.5px;font-weight:700}
+.price{font-size:76px;font-weight:800;font-family:Mono}
+.big{flex:1}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+.step{border:2px solid #263443;border-radius:12px;padding:16px;min-height:170px;background:#0a1017;transition:all .3s}
+.step .t{font-size:24px;font-weight:800;margin:6px 0}.step .s{font-size:16px;color:#8a96a3;font-family:Mono;word-break:break-all}
+.step .ch{font-size:15px;color:#5ed6f2;font-weight:700;letter-spacing:1px}
+.step.on{border-color:#5ef2b0;background:#0f2219}.step.hot{border-color:#f2c75e;background:#221d0f}.step.red{border-color:#ff7a7a;background:#2a1212}
+.status{font-size:64px;font-weight:900}
+.timer{font-family:Mono;font-size:96px;font-weight:800;color:#f2c75e}
+.feed{font-family:Mono;font-size:18px;line-height:1.55;height:175px;overflow:hidden}
+.feed .b{color:#5ed6f2}.feed .l{color:#c99bff}
+.mini{font-size:20px;color:#a9b4c0;margin-top:8px;font-family:Mono}
+</style></head><body>
+<div class="top"><div class="logo">Snap<span>Guard</span> live</div>
+<div class="badge">TESTNET ONLY</div><div class="badge w">Base Sepolia 84532</div><div class="badge w">Reactive Lasna 5318007</div><div class="badge">Paper trades, no real funds</div>
+<div class="clock" id="clock"></div></div>
+<div class="main">
+<div class="term"><h3>TERMINAL (cast, keys hidden)</h3><div id="term"></div></div>
+<div class="right">
+ <div class="row">
+  <div class="card big"><div class="lbl">MOCK POOL PRICE (read from Base Sepolia)</div><div class="price" id="price">...</div><div class="mini" id="pmeta"></div></div>
+  <div class="card big"><div class="lbl" id="plbl">POSITION</div><div class="status" id="status">waiting</div><div class="mini" id="levels"></div></div>
+ </div>
+ <div class="card"><div class="lbl">WHAT IS HAPPENING ON CHAIN</div>
+  <div class="steps">
+   <div class="step" id="s1"><div class="ch">BASE SEPOLIA</div><div class="t">1. Trade opened</div><div class="s" id="s1t">-</div></div>
+   <div class="step" id="s2"><div class="ch">REACTIVE LASNA</div><div class="t">2. Auto-tracked</div><div class="s" id="s2t">-</div></div>
+   <div class="step" id="s3"><div class="ch">BASE SEPOLIA</div><div class="t">3. Price moved</div><div class="s" id="s3t">-</div></div>
+   <div class="step" id="s4"><div class="ch">REACTIVE LASNA</div><div class="t">4. Threshold hit</div><div class="s" id="s4t">-</div></div>
+  </div>
+  <div class="steps" style="grid-template-columns:1fr 2fr 1fr">
+   <div class="step" id="s5"><div class="ch">BASE SEPOLIA</div><div class="t">5. Callback closed it</div><div class="s" id="s5t">-</div></div>
+   <div class="step" style="min-height:170px"><div class="lbl">PRICE MOVE TO TRADE CLOSED</div><div class="timer" id="timer">0.0 s</div><div class="mini" id="onchain">live stopwatch on this page</div></div>
+   <div class="step"><div class="lbl">NO BOT RUNNING</div><div class="mini" style="font-family:Inter;font-size:19px;color:#cfd6de">Nothing on this machine closes the trade. Reactive Network does it.</div></div>
+  </div>
+ </div>
+ <div class="card"><div class="lbl">EVENTS SEEN (eth_getLogs)</div><div class="feed" id="feed"></div></div>
+</div></div>
+<script>
+const BASE='https://sepolia.base.org',LASNA='https://lasna-rpc.rnk.dev/';
+const POOL='0xc2a97f743aB0a9ceadC576F89A3575FfC1926503',VAULT='0x35744e2bCDd640610D0397cB6501d05de8540339',REACT='0xDe45d86EC0f3b821dC87fC15e201D0344d7E8d88';
+const T={opened:'0xb0f6910a02cefabd0484daaaefe900f3e305901caa03acc6cf95eafa950122ac',closed:'0x4766813e80490a54ff32e7318b194e39b0da008fc19f4c596511feb65140f820',tracked:'0x4e26113623a9823f55354e55a44746012c21101b15a7c3dbcc5b214101b4f89c',hit:'0x455d19b558e9efe02546e82b345685eb4c5ed82e5e0fe9e6d1e9453811791857'};
+let id=0;async function rpc(u,m,p){const r=await fetch(u,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:++id,method:m,params:p})});const j=await r.json();if(j.error)throw j.error;return j.result}
+const W=(h,i)=>BigInt('0x'+h.slice(2+64*i,2+64*(i+1)));const fx=v=>(Number(v/10n**14n)/1e4).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2});
+const sh=h=>h.slice(0,10)+'...'+h.slice(-6);const pad=n=>String(n).padStart(2,'0');
+const wat=s=>{const d=new Date((s+3600)*1000);return pad(d.getUTCHours())+':'+pad(d.getUTCMinutes())+':'+pad(d.getUTCSeconds())+' WAT'};
+let pc=0;let st={focus:null,lines:[]},startBase=null,startLasna=null,seen=new Set(),feed=[],tsCache={};
+let moveSeenAt=null,closedAt=null,moveTs=null,closeTs=null,curFocus=null;
+async function bts(u,bn){const k=u+bn;if(!tsCache[k]){const b=await rpc(u,'eth_getBlockByNumber',[bn,false]);tsCache[k]=parseInt(b.timestamp,16)}return tsCache[k]}
+function setStep(i,cls,txt){const e=document.getElementById('s'+i);e.className='step '+cls;document.getElementById('s'+i+'t').innerHTML=txt}
+function reset(){for(let i=1;i<=5;i++)setStep(i,'','-');moveSeenAt=closedAt=moveTs=closeTs=null;document.getElementById('timer').textContent='0.0 s';document.getElementById('onchain').textContent='live stopwatch on this page';document.getElementById('status').textContent='waiting';document.getElementById('status').style.color='#eef2f6'}
+async function pollState(){try{st=await (await fetch('state.json?'+Date.now())).json();
+ document.getElementById('term').innerHTML=st.lines.slice(-26).map(l=>`<div class="${l[0]}">${l[1]}</div>`).join('');
+ if(st.focus!==curFocus){curFocus=st.focus;reset()}}catch(e){}}
+async function pollChain(){
+ if(pc++%4==0)try{const p=await rpc(BASE,'eth_call',[{to:POOL,data:'0x8d681369'},'latest']);document.getElementById('price').textContent='$'+fx(BigInt(p));}catch(e){}
+ if(startBase===null){startBase=parseInt(await rpc(BASE,'eth_blockNumber',[]),16)-30;startLasna=parseInt(await rpc(LASNA,'eth_blockNumber',[]),16)-30}
+ try{const [hb,hl]=await Promise.all([rpc(BASE,'eth_blockNumber',[]),rpc(LASNA,'eth_blockNumber',[])]);const nb=parseInt(hb,16),nl=parseInt(hl,16);const fb=Math.max(startBase,nb-150),fl=Math.max(startLasna,nl-150);
+ const [bl,ll]=await Promise.all([rpc(BASE,'eth_getLogs',[{fromBlock:'0x'+fb.toString(16),toBlock:'0x'+nb.toString(16),address:[VAULT,POOL]}]),rpc(LASNA,'eth_getLogs',[{fromBlock:'0x'+fl.toString(16),toBlock:'0x'+nl.toString(16),address:REACT}])]);startBase=Math.max(startBase,nb-40);startLasna=Math.max(startLasna,nl-40);
+ for(const [ch,lg] of [['b',bl],['l',ll]])for(const x of lg){const k=x.transactionHash+x.logIndex;if(seen.has(k))continue;
+  const t0=x.topics[0],pid=x.topics[1]?Number(BigInt(x.topics[1])):null;let ts=x.blockTimestamp&&x.blockTimestamp!='0x0'?parseInt(x.blockTimestamp,16):null;if(ts===null){try{ts=await bts(ch=='b'?BASE:LASNA,x.blockNumber)}catch(e){console.log('ts err '+JSON.stringify(e));continue}}seen.add(k);const bn=parseInt(x.blockNumber,16);
+  let name=null;
+  if(t0==T.opened){name=`PositionOpened #${pid}`;if(pid===curFocus){setStep(1,'on',`${sh(x.transactionHash)}<br>block ${bn}<br>${wat(ts)}`);document.getElementById('status').textContent='OPEN';document.getElementById('status').style.color='#5ed6f2';document.getElementById('levels').textContent=`entry $${fx(W(x.data,0))}  stop $${fx(W(x.data,1))}  take $${fx(W(x.data,2))}`;document.getElementById('plbl').textContent='PAPER POSITION #'+pid}}
+  else if(t0==T.tracked){name=`PositionTracked #${pid}`;if(pid===curFocus){setStep(2,'on',`${sh(x.transactionHash)}<br>block ${bn}<br>${wat(ts)}`);document.getElementById('status').textContent='OPEN, WATCHED'}}
+  else if(t0==T.hit){const r=Number(W(x.data,0));name=`ThresholdHit #${pid} ${r==1?'StopLoss':'TakeProfit'}`;if(pid===curFocus)setStep(4,'hot',`${sh(x.transactionHash)}<br>block ${bn}<br>${wat(ts)}`)}
+  else if(t0==T.closed){const r=Number(W(x.data,0));name=`PositionClosed #${pid} ${r==1?'StopLoss':'TakeProfit'}`;if(pid===curFocus&&!closedAt){closedAt=performance.now();closeTs=ts;setStep(5,'on',`${sh(x.transactionHash)}<br>block ${bn}<br>${wat(ts)}`);const s=document.getElementById('status');s.textContent='CLOSED: '+(r==1?'STOP-LOSS':'TAKE-PROFIT');s.style.color=r==1?'#ff8a8a':'#5ef2b0';s.style.fontSize='44px';
+     if(moveTs!==null)document.getElementById('onchain').textContent=`on-chain block times: ${wat(moveTs).slice(0,8)} to ${wat(ts).slice(0,8)} = ${ts-moveTs} s`}}
+  else if(x.address.toLowerCase()==POOL.toLowerCase()&&x.topics[0]=='0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1'){name='Sync (price update)';if(st.moveTx&&x.transactionHash==st.moveTx&&!moveTs){moveTs=ts;moveSeenAt=performance.now();setStep(3,'hot',`${sh(x.transactionHash)}<br>block ${bn}<br>${wat(ts)}`)}}
+  if(name)feed.push(`<span class="${ch}">${ch=='b'?'[Base Sepolia]':'[Lasna]       '}</span> ${wat(ts).slice(0,8)}  blk ${bn}  ${name}  ${sh(x.transactionHash)}`)}
+ document.getElementById('feed').innerHTML=feed.slice(-6).join('<br>')}catch(e){console.log('poll err '+JSON.stringify(e))}
+}
+function tick(){const n=new Date();document.getElementById('clock').textContent=n.toLocaleTimeString('en-GB',{timeZone:'Africa/Lagos',hour12:false})+'.'+Math.floor(n.getMilliseconds()/100)+' WAT';
+ if(moveSeenAt){const e=((closedAt||performance.now())-moveSeenAt)/1000;const tm=document.getElementById('timer');tm.textContent=e.toFixed(1)+' s';tm.style.color=closedAt?'#5ef2b0':'#f2c75e'}}
+setInterval(tick,50);setInterval(pollState,250);
+(async function loop(){while(true){await pollChain();await new Promise(r=>setTimeout(r,250))}})();
+</script></body></html>

@@ -15,15 +15,13 @@ export PATH="$HOME/.foundry/bin:$PATH"
 : "${ORIGIN_RPC:?set ORIGIN_RPC}"
 : "${LASNA_RPC:?set LASNA_RPC}"
 
-origin_block=$(cast receipt "$ORIGIN_TX" --rpc-url "$ORIGIN_RPC" -b json | sed -n 's/.*"blockNumber":"\([^"]*\)".*/\1/p' | head -1)
-# fallback via cast
 ob=$(cast receipt "$ORIGIN_TX" blockNumber --rpc-url "$ORIGIN_RPC")
 rb=$(cast receipt "$REACTIVE_TX" blockNumber --rpc-url "$LASNA_RPC")
 cb=$(cast receipt "$CALLBACK_TX" blockNumber --rpc-url "$ORIGIN_RPC")
 
-ots=$(cast block "$ob" timestamp --rpc-url "$ORIGIN_RPC")
-rts=$(cast block "$rb" timestamp --rpc-url "$LASNA_RPC")
-cts=$(cast block "$cb" timestamp --rpc-url "$ORIGIN_RPC")
+ots=$(cast block "$ob" -f timestamp --rpc-url "$ORIGIN_RPC")
+rts=$(cast block "$rb" -f timestamp --rpc-url "$LASNA_RPC")
+cts=$(cast block "$cb" -f timestamp --rpc-url "$ORIGIN_RPC")
 
 echo "origin_tx     $ORIGIN_TX  block=$ob  ts=$ots"
 echo "reactive_tx   $REACTIVE_TX  block=$rb  ts=$rts"

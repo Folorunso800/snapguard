@@ -1,0 +1,194 @@
+{
+ "events": [
+  [
+   1794237973.1676097,
+   "m",
+   "# SnapGuard live run  (testnet only, paper trades)"
+  ],
+  [
+   1794237976.5508852,
+   "m",
+   "# StopLoss demo, paper position #7"
+  ],
+  [
+   1794237976.551084,
+   "c",
+   "$ cast send PaperVault \"openPosition(entry,stop,take)\" \\"
+  ],
+  [
+   1794237976.551422,
+   "c",
+   "    2000e18 1800e18 2200e18"
+  ],
+  [
+   1794237976.8305216,
+   "o",
+   "tx 0xf86632d0280ebdbb9145a1ff22879f762c2d1b5c6bb3158555396efce378abce"
+  ],
+  [
+   1794237978.748875,
+   "g",
+   "status 1 (success)  PositionOpened #7"
+  ],
+  [
+   1794237978.7490916,
+   "m",
+   "# no manual step: waiting for Reactive to see it..."
+  ],
+  [
+   1794237979.34226,
+   "g",
+   "Lasna PositionTracked #7"
+  ],
+  [
+   1794237979.342451,
+   "o",
+   "tx 0x8b78d97388bdb31c27f61960495ed6a527fe281c50af5cdcb41ef24be6243e98"
+  ],
+  [
+   1794237982.3431616,
+   "c",
+   "$ cast send MockPricePool \"movePrice(uint256)\" 1700e18"
+  ],
+  [
+   1794237982.6841528,
+   "o",
+   "tx 0xd40a3a6165112083c8539b79e0e8170f098390381b6d8645b777f15b0c8a17eb"
+  ],
+  [
+   1794238013.157217,
+   "g",
+   "status 1 (success)  Sync emitted"
+  ],
+  [
+   1794238013.157405,
+   "m",
+   "# hands off. waiting for the callback..."
+  ],
+  [
+   1794238013.8017259,
+   "g",
+   "Base PositionClosed #7 (StopLoss)"
+  ],
+  [
+   1794238013.8019092,
+   "o",
+   "tx 0x943f1b72e75093276142a8da2eebcf33534da0fb31b87afd139db6a107ffe053"
+  ],
+  [
+   1794238013.8020654,
+   "o",
+   "reactive tx 0xa2fc2757506ecebfe8654282a6b968e6e74d5de3167c7ac25969e037fa0306ca"
+  ],
+  [
+   1794238017.803405,
+   "m",
+   "# reset test price to 2000 for the next demo"
+  ],
+  [
+   1794238017.803665,
+   "c",
+   "$ cast send MockPricePool \"movePrice(uint256)\" 2000e18"
+  ],
+  [
+   1794238018.1579041,
+   "o",
+   "tx 0x27c04b89a90ade826b14798d8c144237cef4e5e0f160ce852269238ff29ea4a2"
+  ],
+  [
+   1794238018.3588238,
+   "g",
+   "status 1 (success)"
+  ],
+  [
+   1794238022.7076142,
+   "m",
+   "# TakeProfit demo, paper position #8"
+  ],
+  [
+   1794238022.708007,
+   "c",
+   "$ cast send PaperVault \"openPosition(entry,stop,take)\" \\"
+  ],
+  [
+   1794238022.7083442,
+   "c",
+   "    2000e18 1800e18 2200e18"
+  ],
+  [
+   1794238023.0392983,
+   "o",
+   "tx 0x96db1ea4a6725f6e6a7a9505a41bba55cc8245dd3302559dba2c9587f7ad2b4e"
+  ],
+  [
+   1794238024.9946308,
+   "g",
+   "status 1 (success)  PositionOpened #8"
+  ],
+  [
+   1794238024.994829,
+   "m",
+   "# no manual step: waiting for Reactive to see it..."
+  ],
+  [
+   1794238025.7471948,
+   "g",
+   "Lasna PositionTracked #8"
+  ],
+  [
+   1794238025.7479007,
+   "o",
+   "tx 0x3c78cef838ed364d6d42bd037291412ae04296a5ae7b53d4588952cb7d7dfeb1"
+  ],
+  [
+   1794238028.748581,
+   "c",
+   "$ cast send MockPricePool \"movePrice(uint256)\" 2300e18"
+  ],
+  [
+   1794238029.018263,
+   "o",
+   "tx 0x6f3a3f07b4160adef783cfcd077f3299dbe24d8c648b533c36946659777b413f"
+  ],
+  [
+   1794238030.943448,
+   "g",
+   "status 1 (success)  Sync emitted"
+  ],
+  [
+   1794238030.9438157,
+   "m",
+   "# hands off. waiting for the callback..."
+  ],
+  [
+   1794238032.2923036,
+   "g",
+   "Base PositionClosed #8 (TakeProfit)"
+  ],
+  [
+   1794238032.2926927,
+   "o",
+   "tx 0x35a291473c7cc3e3b1697948b620c50565c03a943618fda2e7e62ba20f0c9149"
+  ],
+  [
+   1794238032.2930312,
+   "o",
+   "reactive tx 0x77c1924f5020aa9d820ed9c8f4dd4483adb05afdad1a255eee0c61f030e15f5e"
+  ]
+ ],
+ "start": 1794237974.1677182,
+ "StopLoss_open": "0xf86632d0280ebdbb9145a1ff22879f762c2d1b5c6bb3158555396efce378abce",
+ "StopLoss_tracked": "0x8b78d97388bdb31c27f61960495ed6a527fe281c50af5cdcb41ef24be6243e98",
+ "StopLoss_origin": "0xd40a3a6165112083c8539b79e0e8170f098390381b6d8645b777f15b0c8a17eb",
+ "StopLoss_callback": "0x943f1b72e75093276142a8da2eebcf33534da0fb31b87afd139db6a107ffe053",
+ "StopLoss_reactive": "0xa2fc2757506ecebfe8654282a6b968e6e74d5de3167c7ac25969e037fa0306ca",
+ "StopLoss_pid": 7,
+ "reset": "0x27c04b89a90ade826b14798d8c144237cef4e5e0f160ce852269238ff29ea4a2",
+ "TakeProfit_open": "0x96db1ea4a6725f6e6a7a9505a41bba55cc8245dd3302559dba2c9587f7ad2b4e",
+ "TakeProfit_tracked": "0x3c78cef838ed364d6d42bd037291412ae04296a5ae7b53d4588952cb7d7dfeb1",
+ "TakeProfit_origin": "0x6f3a3f07b4160adef783cfcd077f3299dbe24d8c648b533c36946659777b413f",
+ "TakeProfit_callback": "0x35a291473c7cc3e3b1697948b620c50565c03a943618fda2e7e62ba20f0c9149",
+ "TakeProfit_reactive": "0x77c1924f5020aa9d820ed9c8f4dd4483adb05afdad1a255eee0c61f030e15f5e",
+ "TakeProfit_pid": 8,
+ "end": 1794238032.2933629
+}
